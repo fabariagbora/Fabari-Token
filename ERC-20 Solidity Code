@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+
+contract FabariNFT is ERC721{
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIdCounter;
+    mapping(string => uint8) hashes;
+    mapping(uint256 => Metr) public metadata;
+
+    struct Metr {
+        string name;
+        string image;
+        string description;
+    }
+
+
+    constructor() ERC721("FabarNFT", "FBR") {}
+
+
+    function mint(
+        address to, 
+         string memory _name,
+         string memory _image,
+         string memory _description
+        )
+        public{
+            uint256 tokenId = _tokenIdCounter.current();
+            _tokenIdCounter.increment();
+            _safeMint(to, tokenId);
+            metadata[tokenId] = Metr(_name, _image, _description);
+            
+        }
+
+
+}
