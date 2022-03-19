@@ -19,7 +19,7 @@ Token ID    Image_Link
 
 ### Metadata
 
-Meta data generated when the metadat function was queried is given below:
+Metadata generated when the metadata function was queried is given below:
 
      
     For TokenID 0
