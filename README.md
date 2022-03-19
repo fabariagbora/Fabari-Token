@@ -6,7 +6,7 @@ This repository contains code written in solidity for the creation of ERC-20 and
 
 ## ERC-721 (FBR)
 
-ERC-721 is an acceptable standard used for the creation of Non-Fungible Tokens on the Ethereum Blockchain. The link to Rinkeby ethereum testnet for the ERC-721 token is: https://rinkeby.etherscan.io/address/0x1efc8bfffae9f87787270ab20d5676b79baf4c83
+ERC-721 is an acceptable standard used for the creation of Non-Fungible Tokens on the Ethereum Blockchain. The link to Rinkeby ethereum testnet for the ERC-721 token named FabariNFT with the symbol (FBR) is: https://rinkeby.etherscan.io/address/0x1efc8bfffae9f87787270ab20d5676b79baf4c83
 
 ### IPFS-links
 
@@ -21,6 +21,7 @@ Token ID    Image_Link
 
 Meta data generated when the metadat function was queried is given below:
 
+{
 For TokenID 0
 
     {
