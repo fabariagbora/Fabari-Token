@@ -21,8 +21,8 @@ Token ID    Image_Link
 
 Meta data generated when the metadat function was queried is given below:
 
-{
-For TokenID 0
+     
+    For TokenID 0
 
     {
     name: Inspired Fabari
