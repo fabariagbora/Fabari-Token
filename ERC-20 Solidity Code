@@ -1,0 +1,106 @@
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+//This library ensures an avoidance of overflow errors
+library SafeMath{
+     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+      assert(b <= a);
+      return a - b;
+    }
+
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+      uint256 c = a + b;
+      assert(c >= a);
+      return c;
+    }
+  
+
+}
+
+
+//This contract increase the total supply of tokens everytime a token is Bought. The initial total supply is minted to the creator's addresss
+contract FabariToken is ERC20{
+    
+    //Every uint256 operation must occur by obeying the rules set by the functions in the SafeMath library
+    using SafeMath for uint256;
+
+    //Variables declaration section
+    address payable wallet;
+    uint256 private _totalSupply;
+    uint256 private tokenSent;
+
+
+    //Mapping section
+    mapping(address => uint256) balances;
+    mapping(address => mapping (address => uint256)) allowed;
+
+    
+    //Constructor section
+    constructor() ERC20 ("Fabari", "FBR") {
+        //Address to receive ether must be payable
+        wallet = payable (msg.sender);
+        _totalSupply = 1000000;
+        balances[msg.sender] = _totalSupply;
+        
+    }
+
+    //Functions section
+
+    // This function returns the total supply of Fabari tokens
+    function totalSupply() public view override returns (uint256) {
+
+        return _totalSupply;
+    }
+
+    function balanceOf(address account) public view override returns(uint256){
+        return balances[account];
+    }
+
+    // This function allows owners of Fabari token to transfer tokens to any other acount
+    function transfer(address receiver, uint256 numTokens) public override returns(bool){
+        require(numTokens <= balances[msg.sender]);
+        balances[msg.sender] = balances[msg.sender].sub(numTokens);
+        balances[receiver] = balances[receiver].add(numTokens);
+        emit Transfer(msg.sender, receiver, numTokens);
+        return true;
+    }
+
+    function approve(address delegate, uint256 numTokens) public override returns (bool) {
+        allowed[msg.sender][delegate] = numTokens;
+        emit Approval(msg.sender, delegate, numTokens);
+        return true;
+    }
+
+    function allowance(address owner, address delegate) public override view returns (uint) {
+        return allowed[owner][delegate];
+    }
+
+    function transferFrom(address owner, address buyer, uint256 numTokens) public override returns (bool) {
+        require(numTokens <= balances[owner]);
+        require(numTokens <= allowed[owner][msg.sender]);
+
+        balances[owner] = balances[owner].sub(numTokens);
+        allowed[owner][msg.sender] = allowed[owner][msg.sender].sub(numTokens);
+        balances[buyer] = balances[buyer].add(numTokens);
+        emit Transfer(owner, buyer, numTokens);
+        return true;
+    }
+
+    //Enable anyone buy Fabari token
+    function buyToken(address _tokenReceiver) public payable{
+        //Ensure that the buyer has enough ether to buy the number of tokens.
+        require(msg.value > 0);
+        //Calculating the number of tokens to be sent.
+        tokenSent = (msg.value *1000)/(10**18);
+        //minting the new tokens to the receiver's address.
+        balances[_tokenReceiver] =  balances[_tokenReceiver].add(tokenSent);
+        //Updating the total supply
+        _totalSupply = _totalSupply.add(tokenSent);
+        //Send ether to Fabari's wallet
+        wallet.transfer(msg.value);
+    }
+
+
+}
