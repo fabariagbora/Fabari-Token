@@ -4,6 +4,11 @@ ERC means Ethereum Request for Comment. ERC is a memorandum that describes metho
 
 This repository contains code written in solidity for the creation of ERC-20 and ERC-721 (NFT) tokens named after the owner of this repo Mr. Fabari. The smart contracts written were deployed to the Rinkeby Ethereum testnet.
 
+## ERC-20 
+
+ERC-20 is an acceptable standard used for the creation of Fungible Tokens on the Ethereum Blockchain. The link to Rinkeby ethereum testnet for the ERC-20 token named FabariToken is: https://rinkeby.etherscan.io/address/0xe180e1abdfd6e5ae33ca19145c8322e34f03a4e7
+
+
 ## ERC-721 (FBR)
 
 ERC-721 is an acceptable standard used for the creation of Non-Fungible Tokens on the Ethereum Blockchain. The link to Rinkeby ethereum testnet for the ERC-721 token named FabariNFT with the symbol (FBR) is: https://rinkeby.etherscan.io/address/0x1efc8bfffae9f87787270ab20d5676b79baf4c83
